@@ -34,6 +34,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Menu from './pages/Menu';
 
 setupIonicReact();
 
@@ -42,6 +43,7 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonRouterOutlet>
         <Route component={Register} path="/register" exact/>
+        <Route component={Menu} path="/app" exact/>
         <Route exact path="/">
           <Login />
         </Route>
@@ -51,45 +53,3 @@ const App: React.FC = () => (
 );
 
 export default App;
-
-// import { useEffect } from "react";
-// import { StatusBar, Style } from "@capacitor/status-bar";
-// import { Capacitor } from "@capacitor/core";
-// import { IonApp, IonRouterOutlet } from "@ionic/react";
-// import { IonReactRouter } from "@ionic/react-router";
-// import Register from "./pages/Register";
-// import { Route } from "react-router";
-// import Login from "./pages/Login";
-
-// const App: React.FC = () => {
-//   useEffect(() => {
-//     const configureStatusBar = async () => {
-//       if (Capacitor.isNativePlatform()) {
-//         try {
-//           await StatusBar.setOverlaysWebView({ overlay: false }); // Prevents overlap
-//           await StatusBar.setStyle({ style: Style.Light }); // Light or Dark mode
-//         } catch (error) {
-//           console.error("Error configuring status bar:", error);
-//         }
-//       }
-//     };
-
-//     configureStatusBar();
-//   }, []);
-
-//   return (
-//     <IonApp>
-//       <IonReactRouter>
-//         <IonRouterOutlet>
-//           <Route component={Register} path="/register" exact />
-
-//           <Route exact path="/">
-//             <Login />
-//           </Route>
-//         </IonRouterOutlet>
-//       </IonReactRouter>
-//     </IonApp>
-//   );
-// };
-
-// export default App;

@@ -12,11 +12,11 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { logInOutline } from "ionicons/icons";
-// import img from '../assets/strawberry-svgrepo-com (1).svg';
 import loginImage from "../assets/login-svgrepo-com (1).svg";
 import IntroPage from "../components/Intro";
 import Intro from "../components/Intro";
@@ -26,21 +26,27 @@ const INTRO_KEY = 'intro-seen';
 
 const Login: React.FC = () => {
   const router = useIonRouter();
-  const [introSeen, setIntroSeen] = useState(false);
+  const [introSeen, setIntroSeen] = useState(true);
+  const [ present , dismiss] = useIonLoading();
+
   const handleRegister = () => {
     console.log("Registration started!");
     // router.push('/home');
   };
 
-  const doLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const doLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("doLogin");
+    await present('Logging in....');
+    setTimeout(() => {
+        dismiss();
+        router.push('/app', 'root');
+    }, 2000)
   };
 
   const finishIntro = async() => {
     console.log("Intro Finished!");
     setIntroSeen(true);
-    // Preferences.set({ key: INTRO_KEY, value: 'true' });
+    Preferences.set({ key: INTRO_KEY, value: 'true' });
   };
 
   useEffect(() => {
@@ -51,6 +57,11 @@ const Login: React.FC = () => {
     };
     checkStorage();
   }, []);
+
+  const watchIntroAgain = () => {
+    setIntroSeen(false);
+    Preferences.set({key: INTRO_KEY, value: 'false'});
+  }
 
   return (
     <>
@@ -111,6 +122,15 @@ const Login: React.FC = () => {
                   >
                     Create account
                   </IonButton>
+                  <IonButton
+                    type="button"
+                    size="small"
+                    color={"medium"}
+                    className="ion-margin-top"
+                    fill="clear"
+                    expand="full"
+                    onClick={watchIntroAgain}
+                  >Watch intro again</IonButton>
                 </form>
               </IonCardContent>
             </IonCard>
