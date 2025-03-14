@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 
 const Menu: React.FC = () => {
@@ -7,11 +7,14 @@ const Menu: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page Title</IonTitle>
+                    <IonTitle>Login Successful!</IonTitle>
+                    <IonButtons slot="start">
+                        <IonBackButton defaultHref="/" />
+                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                UI goes here...
+                Redirect to register page
             </IonContent>
         </IonPage>
     );
