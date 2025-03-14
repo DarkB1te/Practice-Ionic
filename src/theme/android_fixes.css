@@ -1,0 +1,15 @@
+/* Android-specific status bar fixes */
+@media screen and (platform: android) {
+    ion-header {
+      margin-top: env(safe-area-inset-top, 24px);
+    }
+    
+    ion-content {
+      --padding-top: env(safe-area-inset-top, 0);
+    }
+    
+    /* For pages without headers */
+    .header-less-page {
+      padding-top: env(safe-area-inset-top, 24px);
+    }
+  }

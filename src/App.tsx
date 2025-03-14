@@ -35,21 +35,38 @@ import './theme/variables.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Menu from './pages/Menu';
+import { StatusBar } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
+import { useEffect } from 'react';
+import './theme/android_fixes.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route component={Register} path="/register" exact/>
-        <Route component={Menu} path="/app" exact/>
-        <Route exact path="/">
-          <Login />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+
+const App: React.FC = () => {
+  useEffect(() => {
+    if (Capacitor.isPluginAvailable('StatusBar') && Capacitor.getPlatform() === 'android') {
+      // Keep the status bar visible, but make sure it doesn't overlap content
+      StatusBar.setOverlaysWebView({ overlay: false });
+      
+      // Optional: Set the status bar color to match your app's primary color
+      StatusBar.setBackgroundColor({ color: '#3880ff' });
+    }
+  }, []);
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route component={Register} path="/register" exact/>
+          <Route component={Menu} path="/app" exact/>
+          <Route exact path="/">
+            <Login />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
